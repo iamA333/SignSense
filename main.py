@@ -11,10 +11,16 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 import tensorflow as tf
 from streamlit_webrtc import WebRtcMode, webrtc_streamer
-
+import av
 # import pyttsx3  
 
 # Use this line to capture video from the webcam
+def video_frame_callback(frame):
+    img = frame.to_ndarray(format="bgr24")
+
+    flipped = img[::-1,:,:]
+
+    return av.VideoFrame.from_ndarray(flipped, format="bgr24")
 
 mpHands = mp.solutions.hands
 hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
@@ -31,6 +37,7 @@ print(classNames)
 cap = webrtc_streamer(
     key="object-detection",
     # video_frame_callback=video_frame_callback,
+    video_frame_callback=video_frame_callback,
     # media_stream_constraints={"video": True, "audio": False},
     async_processing=True,
 )
