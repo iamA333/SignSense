@@ -60,6 +60,7 @@ f = open('gesture.names', 'r')
 classNames = f.read().split('\n')
 f.close()
 print(classNames)
+args = get_args()
 cap_device = args.device
 cap_width = args.width
 cap_height = args.height
