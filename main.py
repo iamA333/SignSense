@@ -47,8 +47,8 @@ frame_placeholder = st.empty()
 
 # Add a "Stop" button and store its state in a variable
 stop_button_pressed = st.button("Stop")
-
-while cap.isOpened() and not stop_button_pressed:
+# cap.isOpened() and
+while not stop_button_pressed:
     ret, frame = cap.read()
 
     if not ret:
