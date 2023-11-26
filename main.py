@@ -55,7 +55,7 @@ while not stop_button_pressed:
         st.write("The video capture has ended.")
         break
 
-    ret, frame = cap.read()
+    ret, frame = cap.get()
     if not ret:
         continue
 
