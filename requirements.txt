@@ -3,4 +3,4 @@ tensorflow
 mediapipe
 streamlit
 pyttsx3
-streamlit_webrtc
+streamlit-webrtc
