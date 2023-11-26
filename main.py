@@ -2,9 +2,11 @@ import cv2
 import streamlit as st
 import numpy as np
 import tempfile
-import cv2
-from cv2 import VideoCapture
-from cv2 import waitKey
+# import cv2
+# from cv2 import VideoCapture
+# from cv2 import waitKey
+import argparse
+import cv2 as cv
 import numpy as np
 import mediapipe as mp
 import tensorflow as tf
@@ -13,6 +15,33 @@ import tensorflow as tf
 # from streamlit_webrtc import WebRtcMode, webrtc_streamer
 # import av
 # import pyttsx3  
+def get_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--device", type=int, default=0)
+    parser.add_argument("--width", help='cap width', type=int, default=640)
+    parser.add_argument("--height", help='cap height', type=int, default=360)
+
+    parser.add_argument('--static_image_mode', action='store_true')
+    parser.add_argument("--model_complexity",
+                        help='model_complexity(0,1(default),2)',
+                        type=int,
+                        default=1)
+    parser.add_argument("--min_detection_confidence",
+                        help='min_detection_confidence',
+                        type=float,
+                        default=0.5)
+    parser.add_argument("--min_tracking_confidence",
+                        help='min_tracking_confidence',
+                        type=int,
+                        default=0.5)
+
+    parser.add_argument('--rev_color', action='store_true')
+
+    args = parser.parse_args()
+
+    return args
+
 
 # Use this line to capture video from the webcam
 def video_frame_callback(frame):
