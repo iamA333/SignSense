@@ -10,8 +10,8 @@ import mediapipe as mp
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 import tensorflow as tf
-from streamlit_webrtc import WebRtcMode, webrtc_streamer
-import av
+# from streamlit_webrtc import WebRtcMode, webrtc_streamer
+# import av
 # import pyttsx3  
 
 # Use this line to capture video from the webcam
@@ -34,13 +34,14 @@ print(classNames)
 
 # Set the title for the Streamlit app
 # cap = cv2.VideoCapture(0)
-cap = webrtc_streamer(
-    key="object-detection",
-    # video_frame_callback=video_frame_callback,
-    video_frame_callback=video_frame_callback,
-    # media_stream_constraints={"video": True, "audio": False},
-    async_processing=True,
-)
+# cap = webrtc_streamer(
+#     key="object-detection",
+#     # video_frame_callback=video_frame_callback,
+#     video_frame_callback=video_frame_callback,
+#     # media_stream_constraints={"video": True, "audio": False},
+#     async_processing=True,
+# )
+cap = cv.VideoCapture()
 st.title("SignSense")
 
 frame_placeholder = st.empty()
@@ -55,7 +56,7 @@ while not stop_button_pressed:
         st.write("The video capture has ended.")
         break
 
-    ret, frame = cap.get()
+    ret, frame = cap.read()
     if not ret:
         continue
 
