@@ -12,35 +12,10 @@ import mediapipe as mp
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 import tensorflow as tf
-# from streamlit_webrtc import WebRtcMode, webrtc_streamer
-# import av
+from streamlit_webrtc import WebRtcMode, webrtc_streamer
+import av
 # import pyttsx3  
-def get_args():
-    parser = argparse.ArgumentParser()
 
-    parser.add_argument("--device", type=int, default=0)
-    parser.add_argument("--width", help='cap width', type=int, default=640)
-    parser.add_argument("--height", help='cap height', type=int, default=360)
-
-    parser.add_argument('--static_image_mode', action='store_true')
-    parser.add_argument("--model_complexity",
-                        help='model_complexity(0,1(default),2)',
-                        type=int,
-                        default=1)
-    parser.add_argument("--min_detection_confidence",
-                        help='min_detection_confidence',
-                        type=float,
-                        default=0.5)
-    parser.add_argument("--min_tracking_confidence",
-                        help='min_tracking_confidence',
-                        type=int,
-                        default=0.5)
-
-    parser.add_argument('--rev_color', action='store_true')
-
-    args = parser.parse_args()
-
-    return args
 
 
 # Use this line to capture video from the webcam
@@ -60,23 +35,17 @@ f = open('gesture.names', 'r')
 classNames = f.read().split('\n')
 f.close()
 print(classNames)
-args = get_args()
-cap_device = args.device
-cap_width = args.width
-cap_height = args.height
-cap = cv.VideoCapture(cap_device)
-cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
-cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
+
 
 # Set the title for the Streamlit app
 # cap = cv2.VideoCapture(0)
-# cap = webrtc_streamer(
-#     key="object-detection",
-#     # video_frame_callback=video_frame_callback,
-#     video_frame_callback=video_frame_callback,
-#     # media_stream_constraints={"video": True, "audio": False},
-#     async_processing=True,
-# )
+cap = webrtc_streamer(
+    key="object-detection",
+    # video_frame_callback=video_frame_callback,
+    video_frame_callback=video_frame_callback,
+    # media_stream_constraints={"video": True, "audio": False},
+    async_processing=True,
+)
 # cap = cv2.VideoCapture()
 st.title("SignSense")
 
