@@ -41,7 +41,7 @@ print(classNames)
 #     # media_stream_constraints={"video": True, "audio": False},
 #     async_processing=True,
 # )
-cap = cv.VideoCapture()
+cap = cv2.VideoCapture()
 st.title("SignSense")
 
 frame_placeholder = st.empty()
