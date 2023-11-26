@@ -60,6 +60,12 @@ f = open('gesture.names', 'r')
 classNames = f.read().split('\n')
 f.close()
 print(classNames)
+cap_device = args.device
+cap_width = args.width
+cap_height = args.height
+cap = cv.VideoCapture(cap_device)
+cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
+cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
 
 # Set the title for the Streamlit app
 # cap = cv2.VideoCapture(0)
@@ -70,7 +76,7 @@ print(classNames)
 #     # media_stream_constraints={"video": True, "audio": False},
 #     async_processing=True,
 # )
-cap = cv2.VideoCapture()
+# cap = cv2.VideoCapture()
 st.title("SignSense")
 
 frame_placeholder = st.empty()
@@ -92,8 +98,8 @@ while not stop_button_pressed:
     x, y, c = frame.shape
 
     # Flip the frame vertically
-    frame = cv2.flip(frame, 1)
-    framergb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    frame = cv.flip(frame, 1)
+    framergb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     # Get hand landmark prediction
     result = hands.process(framergb)
@@ -131,7 +137,7 @@ while not stop_button_pressed:
     
 
     # Convert the frame from BGR to RGB format
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     # Display the frame using Streamlit's st.image
     frame_placeholder.image(frame, channels="RGB")
@@ -141,4 +147,4 @@ while not stop_button_pressed:
         break
 
 cap.release()
-cv2.destroyAllWindows()
+
