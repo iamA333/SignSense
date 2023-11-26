@@ -10,6 +10,7 @@ import mediapipe as mp
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 import tensorflow as tf
+from streamlit_webrtc import WebRtcMode, webrtc_streamer
 
 # import pyttsx3  
 
@@ -26,7 +27,18 @@ f.close()
 print(classNames)
 
 # Set the title for the Streamlit app
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
+cap = webrtc_streamer(
+    key="object-detection",
+    mode=WebRtcMode.SENDRECV,
+    rtc_configuration={
+        "iceServers": get_ice_servers(),
+        "iceTransportPolicy": "relay",
+    },
+    video_frame_callback=video_frame_callback,
+    media_stream_constraints={"video": True, "audio": False},
+    async_processing=True,
+)
 st.title("SignSense")
 
 frame_placeholder = st.empty()
