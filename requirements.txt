@@ -1,0 +1,5 @@
+opencv-python
+tensorflow
+mediapipe
+streamlit
+pyttsx3
