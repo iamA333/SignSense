@@ -1,16 +1,16 @@
 # import cv2
-# import streamlit as st
-# import numpy as np
-# import tempfile
-# # import cv2
-# # from cv2 import VideoCapture
-# # from cv2 import waitKey
-# import argparse
+import streamlit as st
+import numpy as np
+import tempfile
+import cv2
+from cv2 import VideoCapture
+from cv2 import waitKey
+import argparse
 # import cv2 as cv
 # import numpy as np
-# import mediapipe as mp
-# import tensorflow as tf
-# from tensorflow.keras.models import load_model
+import mediapipe as mp
+import tensorflow as tf
+from tensorflow.keras.models import load_model
 # import tensorflow as tf
 # from streamlit_webrtc import WebRtcMode, webrtc_streamer
 # import av
@@ -38,7 +38,7 @@
 
 
 # # Set the title for the Streamlit app
-# # cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 # cap = webrtc_streamer(
 #     key="object-detection",
 #     # video_frame_callback=video_frame_callback,
@@ -47,29 +47,29 @@
 #     async_processing=True,
 # )
 # # cap = cv2.VideoCapture()
-# st.title("SignSense")
+st.title("SignSense")
 
 # frame_placeholder = st.empty()
 
 # # Add a "Stop" button and store its state in a variable
-# stop_button_pressed = st.button("Stop")
+stop_button_pressed = st.button("Stop")
 # # cap.isOpened() and
-# while not stop_button_pressed:
-#     ret, frame = cap.read()
+while cap.isOpened() and not stop_button_pressed:
+    ret, frame = cap.read()
 
-#     if not ret:
-#         st.write("The video capture has ended.")
-#         break
+    if not ret:
+        st.write("The video capture has ended.")
+        break
 
-#     ret, frame = cap.read()
-#     if not ret:
-#         continue
+    ret, frame = cap.read()
+    if not ret:
+        continue
 
-#     x, y, c = frame.shape
+    x, y, c = frame.shape
 
 #     # Flip the frame vertically
-#     frame = cv.flip(frame, 1)
-#     framergb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+    frame = cv.flip(frame, 1)
+    framergb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
 #     # Get hand landmark prediction
 #     result = hands.process(framergb)
@@ -107,43 +107,17 @@
     
 
 #     # Convert the frame from BGR to RGB format
-#     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+    frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
 #     # Display the frame using Streamlit's st.image
-#     frame_placeholder.image(frame, channels="RGB")
+    frame_placeholder.image(frame, channels="RGB")
 
 #     # Break the loop if the 'q' key is pressed or the user clicks the "Stop" button
-#     if cv2.waitKey(1) & 0xFF == ord("q") or stop_button_pressed: 
-#         break
+    if cv2.waitKey(1) & 0xFF == ord("q") or stop_button_pressed: 
+        break
 
-# cap.release()
-import cv2
-import streamlit as st
-from streamlit_webrtc import webrtc_streamer, VideoProcessorBase
+cap.release()
 
-class WebcamVideoProcessor(VideoProcessorBase):
-    def __init__(self):
-        # Initialize any setup code here
-        pass
-
-    def process(self, frame):
-        # Process each frame from the webcam
-        return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-def main():
-    st.title("Webcam Streamer with Streamlit-WebRTC")
-
-    # Define the unique key for the streamer
-    webrtc_ctx = webrtc_streamer(
-        key="example",
-        video_processor_factory=WebcamVideoProcessor,
-        
-        # Other configuration options if needed
-    )
-
-    # Display the webcam feed in the Streamlit app
-    if webrtc_ctx.video_processor:
-        st.video(webrtc_ctx.video_processor)
 
 if __name__ == "__main__":
     main()
