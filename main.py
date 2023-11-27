@@ -132,7 +132,7 @@ webrtc_streamer(
     key="object-detection",
     # video_frame_callback=video_frame_callback,
     video_frame_callback=video_frame_callback,
-    # media_stream_constraints={"video": True, "audio": False},
+    media_stream_constraints={"video": True, "audio": False},
     async_processing=True,
 )
 
