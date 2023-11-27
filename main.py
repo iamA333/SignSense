@@ -143,7 +143,7 @@ def main():
 
     # Display the webcam feed in the Streamlit app
     if webrtc_ctx.video_processor:
-        st.video(webrtc_ctx.video_processor.frame_out)
+        st.video(webrtc_ctx.video_processor)
 
 if __name__ == "__main__":
     main()
