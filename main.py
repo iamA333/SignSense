@@ -152,7 +152,7 @@ f.close()
 print(classNames)
 
 # Set the title for the Streamlit app
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(-1)
 st.write("SignSense 👌")
 
 frame_placeholder = st.empty()
