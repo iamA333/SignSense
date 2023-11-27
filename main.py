@@ -19,12 +19,12 @@
 
 
 # # Use this line to capture video from the webcam
-def video_frame_callback(frame):
-    img = frame.to_ndarray(format="bgr24")
+# def video_frame_callback(frame):
+#     img = frame.to_ndarray(format="bgr24")
 
-    flipped = img[::-1,:,:]
+#     flipped = img[::-1,:,:]
 
-    return av.VideoFrame.from_ndarray(flipped, format="bgr24")
+#     return av.VideoFrame.from_ndarray(flipped, format="bgr24")
 
 # mpHands = mp.solutions.hands
 # hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
@@ -117,22 +117,34 @@ def video_frame_callback(frame):
 #         break
 
 # cap.release()
-import streamlit as st
-import numpy as np
-import mediapipe as mp
-from tensorflow.keras.models import load_model
-from streamlit_webrtc import WebRtcMode, webrtc_streamer
 import cv2
-
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import webrtc_streamer, VideoProcessorBase
 
-# webrtc_streamer(key="example")
-cap =webrtc_streamer(
-    key="object-detection",
-    # video_frame_callback=video_frame_callback,
-    video_frame_callback=video_frame_callback,
-    media_stream_constraints={"video": True, "audio": False},
-    async_processing=True,
-)
+class WebcamVideoProcessor(VideoProcessorBase):
+    def __init__(self):
+        # Initialize any setup code here
+        pass
+
+    def process(self, frame):
+        # Process each frame from the webcam
+        return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+def main():
+    st.title("Webcam Streamer with Streamlit-WebRTC")
+
+    # Define the unique key for the streamer
+    webrtc_ctx = webrtc_streamer(
+        key="example",
+        video_processor_factory=WebcamVideoProcessor,
+        desired_playing_width=640,
+        # Other configuration options if needed
+    )
+
+    # Display the webcam feed in the Streamlit app
+    if webrtc_ctx.video_processor:
+        st.video(webrtc_ctx.video_processor.frame_out)
+
+if __name__ == "__main__":
+    main()
 
