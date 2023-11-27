@@ -19,12 +19,12 @@
 
 
 # # Use this line to capture video from the webcam
-# def video_frame_callback(frame):
-#     img = frame.to_ndarray(format="bgr24")
+def video_frame_callback(frame):
+    img = frame.to_ndarray(format="bgr24")
 
-#     flipped = img[::-1,:,:]
+    flipped = img[::-1,:,:]
 
-#     return av.VideoFrame.from_ndarray(flipped, format="bgr24")
+    return av.VideoFrame.from_ndarray(flipped, format="bgr24")
 
 # mpHands = mp.solutions.hands
 # hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
