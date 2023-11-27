@@ -38,7 +38,7 @@ from tensorflow.keras.models import load_model
 
 
 # # Set the title for the Streamlit app
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
 # cap = webrtc_streamer(
 #     key="object-detection",
 #     # video_frame_callback=video_frame_callback,
@@ -119,6 +119,4 @@ while cap.isOpened() and not stop_button_pressed:
 cap.release()
 
 
-if __name__ == "__main__":
-    main()
 
