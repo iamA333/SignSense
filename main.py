@@ -128,7 +128,7 @@ import streamlit as st
 from streamlit_webrtc import webrtc_streamer
 
 # webrtc_streamer(key="example")
-webrtc_streamer(
+cap =webrtc_streamer(
     key="object-detection",
     # video_frame_callback=video_frame_callback,
     video_frame_callback=video_frame_callback,
