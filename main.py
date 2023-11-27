@@ -137,7 +137,7 @@ def main():
     webrtc_ctx = webrtc_streamer(
         key="example",
         video_processor_factory=WebcamVideoProcessor,
-        desired_playing_width=640,
+        
         # Other configuration options if needed
     )
 
